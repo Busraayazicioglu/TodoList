@@ -14,6 +14,23 @@ function runEvents() {
   form.addEventListener("submit", addTodo);
   document.addEventListener("DOMContentLoaded", pageLoaded);
   secondCardBody.addEventListener("click", removeTodoToUI);
+  clearButton.addEventListener("click", allTodosEverywhere);
+}
+
+function allTodosEverywhere() {
+  const todoListesi = document.querySelectorAll(".list-group-item");
+  if (todoListesi.length > 0) {
+    //ekrandan silme
+    todoListesi.forEach(function (todo) {
+      todo.remove();
+    });
+    //storageden silme
+    todos = [];
+    localStorage.setItem("todos", JSON.stringify(todos));
+    showAlert("success", "Başarılı bir şekilde silindi.");
+  } else {
+    showAlert("warning", "Silmek için en az bir todo olmalıdır.");
+  }
 }
 
 function removeTodoToUI(e) {
