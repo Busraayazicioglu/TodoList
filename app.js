@@ -18,10 +18,23 @@ function runEvents() {
 
 function removeTodoToUI(e) {
   if ((e.target.className = "fa fa-remove")) {
+    //ekrandan silme
     const todo = e.target.parentElement.parentElement;
     todo.remove();
+    //storageden silme
+    removeTodoStorage(todo.textContent);
     showAlert("success", "Todo başarıyla silindi.");
   }
+}
+
+function removeTodoStorage(removeTodo) {
+  checkTodosFromStorage();
+  todos.forEach(function (todo, index) {
+    if (removeTodo === todo) {
+      todos.splice(index, 1);
+    }
+  });
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 function pageLoaded() {
