@@ -1,9 +1,13 @@
+//tüm elementleri seçme
 const form = document.querySelector("#todoAddForm");
 const addInput = document.querySelector("#todoName");
 const todoList = document.querySelector(".list-group");
 const firstCardBody = document.querySelectorAll(".card-body")[0];
 const secondCardBody = document.querySelectorAll(".card-body")[1];
 const clearButton = document.querySelector("#clearButton");
+
+let todos = [];
+
 runEvents();
 
 function runEvents() {
@@ -16,6 +20,7 @@ function addTodo(e) {
     alert("Lütfen bir değer giriniz.");
   } else {
     addTodoToUI(inputText);
+    addTodoToStorage(inputText);
   }
   console.log("submit eventi calisti.");
   e.preventDefault();
@@ -33,4 +38,20 @@ function addTodoToUI(newTodo) {
   a.appendChild(i);
   li.appendChild(a);
   todoList.appendChild(li);
+
+  addInput.value = "";
+}
+
+function addTodoToStorage(newTodo) {
+  checkTodosFromStorage();
+  todos.push(newTodo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function checkTodosFromStorage() {
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
 }
