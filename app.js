@@ -13,6 +13,15 @@ runEvents();
 function runEvents() {
   form.addEventListener("submit", addTodo);
   document.addEventListener("DOMContentLoaded", pageLoaded);
+  secondCardBody.addEventListener("click", removeTodoToUI);
+}
+
+function removeTodoToUI(e) {
+  if ((e.target.className = "fa fa-remove")) {
+    const todo = e.target.parentElement.parentElement;
+    todo.remove();
+    showAlert("success", "Todo başarıyla silindi.");
+  }
 }
 
 function pageLoaded() {
